@@ -1,2 +1,4 @@
 *.bundle
 *.o
+tmp/
+ext/Makefile

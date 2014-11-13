@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    c_geohash (1.1.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.4.3)
+    rake (10.3.2)
+    rake-compiler (0.9.3)
+      rake
+
+PLATFORMS
+  java
+  ruby
+
+DEPENDENCIES
+  c_geohash!
+  minitest (~> 5.4)
+  rake (~> 10.3)
+  rake-compiler (~> 0.9)
