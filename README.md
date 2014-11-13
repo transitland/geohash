@@ -38,6 +38,12 @@ You can encode or decode to an arbitrary level of precision:
 * Encode latitude and longitude to a geohash with precision digits: `encode(lat, lon, precision=10)`
 * Decode a geohash to a latitude and longitude with decimals digits: `decode(geohash, decimals=5)`
 
+## To Develop
+
+1) Install gem dependencies: `bundle install`
+2) If using MRI, compile the C extension: `bundle exec rake compile` (if you're using JRuby, this step is unnecessary)
+3) Run tests: `bundle exec rake test`
+
 ## Credits
 * written by [@davetroy](https://github.com/davetroy)
 * updated for Ruby 1.9 by [@anthonator](https://github.com/anthonator)

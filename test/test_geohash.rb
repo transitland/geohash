@@ -1,9 +1,9 @@
-#!/usr/bin/env ruby
 $LOAD_PATH << "#{File.dirname(__FILE__)}/../ext"
 require "#{File.dirname(__FILE__)}/../lib/geohash"
-require 'test/unit'
+require 'minitest/test'
+require 'minitest/autorun'
 
-class GeoHashTest < Test::Unit::TestCase
+class GeoHashTest < MiniTest::Test
   
   def test_decoding
     assert_equal [39.02474, -76.51100], GeoHash.decode("dqcw4bnrs6s7")
