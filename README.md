@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/mapzen/geohash.svg?branch=master)](https://travis-ci.org/mapzen/geohash)
+[![Gem Version](https://badge.fury.io/rb/c_geohash.svg)](http://badge.fury.io/rb/c_geohash)
+
 # Geohash
 
 Geohash is a latitude/longitude encoding system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. Geohashes offer properties like arbitrary precision, similar prefixes for nearby positions, and the possibility of gradually removing characters from the end of the code to reduce its size (and gradually lose precision).
