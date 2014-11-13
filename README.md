@@ -1,13 +1,18 @@
 [![Build Status](https://travis-ci.org/mapzen/geohash.svg?branch=master)](https://travis-ci.org/mapzen/geohash)
 [![Gem Version](https://badge.fury.io/rb/c_geohash.svg)](http://badge.fury.io/rb/c_geohash)
 
-# Geohash
+# Geohash (on Rubygems as "c_geohash")
 
 Geohash is a latitude/longitude encoding system invented by Gustavo Niemeyer when writing the web service at geohash.org, and put into the public domain. Geohashes offer properties like arbitrary precision, similar prefixes for nearby positions, and the possibility of gradually removing characters from the end of the code to reduce its size (and gradually lose precision).
 
 For more information, see:
 * [the Wikipedia article on geohash](http://en.wikipedia.org/wiki/Geohash)
 * [an interactive JavaScript example of geohash](http://www.movable-type.co.uk/scripts/geohash.html)
+
+## Note on naming
+This code is available on Rubygems under the name "[c_geohash](https://rubygems.org/gems/c_geohash)", since the original "geohash" has not been updated since 2008.
+
+**Note to @davetroy**: If you'd prefer to re-release this under the original name, that would be great. Feel free to drop me a line.
 
 ## Features
 
