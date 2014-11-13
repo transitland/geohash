@@ -19,6 +19,13 @@ For more information, see:
 
 * GCC and a Gnu-ish build environment (for native extensions)
 
+## How to install
+
+Add to your gemfile:
+````ruby
+gem 'c_geohash', require: 'geohash'
+````
+
 ## How to use
 
 GeoHash is very easy to use (and fast) because it's written in C with Ruby bindings.
