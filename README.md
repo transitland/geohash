@@ -55,9 +55,9 @@ You can encode or decode to an arbitrary level of precision:
 
 ## To Develop
 
-1) Install gem dependencies: `bundle install`
-2) If using MRI, compile the C extension: `bundle exec rake compile` (if you're using JRuby, this step is unnecessary)
-3) Run tests: `bundle exec rake test`
+1. Install gem dependencies: `bundle install`
+2. If using MRI, compile the C extension: `bundle exec rake compile` (if you're using JRuby, this step is unnecessary)
+3. Run tests: `bundle exec rake test`
 
 ## Credits
 * written by [@davetroy](https://github.com/davetroy)
