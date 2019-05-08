@@ -15,6 +15,12 @@ class GeoHashTest < MiniTest::Test
     assert_equal [37.8565, -122.2554], GeoHash.decode("9q9p658642g7", 4)
   end
 
+  def test_invalid_decoding
+    assert_raises GeoHash::InvalidGeoHashError do
+     GeoHash.decode("a")
+    end
+  end
+
   def test_encoding
     assert_equal "dqcw4bnrs6s7", GeoHash.encode(39.0247389581054, -76.5110040642321, 12)
     assert_equal "dqcw4bnrs6", GeoHash.encode(39.0247389581054, -76.5110040642321, 10)
@@ -52,6 +58,7 @@ class GeoHashTest < MiniTest::Test
   
   def test_neighbors
     assert_equal ["dqcjr1", "dqcjq9", "dqcjqf", "dqcjqb", "dqcjr4", "dqcjr0", "dqcjqd", "dqcjq8"], GeoHash.new("dqcjqc").neighbors
+    assert_equal ["9", "x", "b", "2", "c", "3", "z", "r"].sort, GeoHash.new("8").neighbors.sort
 
     assert_equal "dqcw5", GeoHash.calculate_adjacent("dqcw4", 0)  # right
     assert_equal "dqcw1", GeoHash.calculate_adjacent("dqcw4", 1)  # left
@@ -65,6 +72,17 @@ class GeoHashTest < MiniTest::Test
     assert_equal 8, (["dqcw7", "dqctg", "dqcw4", "dqcwh", "dqcw6", "dqcwk", "dqctf", "dqctu"] & GeoHash.new("dqcw5").neighbors).size
   end
   
+  def test_edge_neighbors
+    assert_equal ["852", "853", "851", "84c", "84b", "xfz", "xgp", "xgr"].sort, GeoHash.new("850").neighbors.sort
+
+    assert_equal "851", GeoHash.calculate_adjacent("850", 0)  # right
+    assert_equal "xgp", GeoHash.calculate_adjacent("850", 1)  # left
+    assert_equal "852", GeoHash.calculate_adjacent("850", 2)  # top
+    assert_equal "84b", GeoHash.calculate_adjacent("850", 3)  # bottom
+
+    assert_equal 8, (["852", "853", "851", "84c", "84b", "xfz", "xgp", "xgr"] & GeoHash.new("850").neighbors).size
+  end
+
   # require 'benchmark'
   # def test_multiple
   #   Benchmark.bmbm(30) do |bm|

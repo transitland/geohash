@@ -24,7 +24,7 @@ class GeoHash
 
   # Decode a geohash to a latitude and longitude with decimals digits
   def self.decode(geohash, decimals=5)
-    lat, lon = decode_base(geohash)
+    lat, lon = decode_base(geohash.downcase)
     [lat.decimals(decimals), lon.decimals(decimals)]
   end
   
