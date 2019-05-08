@@ -27,8 +27,10 @@
 
 #include "ruby.h"
 #include <ctype.h>
+#include <string.h>
 
 static VALUE rb_cGeoHash;
+static VALUE rb_eInvalidGeoHashError;
 
 #define BASE32	"0123456789bcdefghjkmnpqrstuvwxyz"
 
@@ -61,6 +63,10 @@ static void decode_geohash_bbox(char *geohash, double *lat, double *lon) {
 }
 
 static void decode_geohash(char *geohash, double *point) {
+	if (strspn(geohash, BASE32) != strlen(geohash)) {
+		rb_raise(rb_eInvalidGeoHashError, "Invalid character.");
+	}
+
 	double lat[2], lon[2];
 
 	decode_geohash_bbox(geohash, lat, lon);
@@ -170,10 +176,10 @@ void get_neighbor(char *str, int dir, int hashlen)
 	/* Right, Left, Top, Bottom */
 
 	static char *neighbors[] = { "bc01fg45238967deuvhjyznpkmstqrwx",
-														 	 "238967debc01fg45kmstqrwxuvhjyznp",
-														 	 "p0r21436x8zb9dcf5h7kjnmqesgutwvy",
-														   "14365h7k9dcfesgujnmqp0r2twvyx8zb" };
-												
+	                             "238967debc01fg45kmstqrwxuvhjyznp",
+	                             "p0r21436x8zb9dcf5h7kjnmqesgutwvy",
+	                             "14365h7k9dcfesgujnmqp0r2twvyx8zb" };
+
 	static char *borders[] = { "bcfguvyz", "0145hjnp", "prxz", "028b" };
 
 	char last_chr, *border, *neighbor;
@@ -181,7 +187,7 @@ void get_neighbor(char *str, int dir, int hashlen)
 	neighbor = neighbors[index];
 	border = borders[index];
 	last_chr = str[hashlen-1];
-	if (strchr(border,last_chr))
+	if (strchr(border,last_chr) && hashlen != 0)
 		get_neighbor(str, dir, hashlen-1);
 	str[hashlen-1] = BASE32[strchr(neighbor, last_chr)-neighbor];
 }
@@ -203,7 +209,11 @@ static VALUE calculate_adjacent(VALUE self, VALUE geohash, VALUE dir)
 void Init_geohash_native()
 {
 	rb_cGeoHash = rb_define_class("GeoHash", rb_cObject);
+	rb_eInvalidGeoHashError = rb_define_class_under(rb_cGeoHash, "InvalidGeoHashError", rb_eStandardError);
+
+	rb_define_attr(rb_eInvalidGeoHashError, "additional_info", 1, 0);
 	rb_define_singleton_method(rb_cGeoHash, "decode_bbox", decode_bbox, 1);
+
 	rb_define_singleton_method(rb_cGeoHash, "decode_base", decode, 1);
 	rb_define_singleton_method(rb_cGeoHash, "encode_base", encode, 3);
 	rb_define_singleton_method(rb_cGeoHash, "calculate_adjacent", calculate_adjacent, 2);
